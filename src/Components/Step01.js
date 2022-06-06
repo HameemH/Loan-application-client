@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Card, Form } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import Step02 from './Step02';
 
 const Step01 = () => {
@@ -36,7 +36,7 @@ const Step01 = () => {
         const personalInfo ={name, age, phone, email, id}
         console.log(personalInfo);
         if(idError==='' && ageError===''){
-            fetch('http://localhost:5000/users', {
+            fetch('https://enigmatic-wave-24762.herokuapp.com/users', {
                 method: 'POST',
                 headers: {
                   'content-type': 'application/json'
@@ -62,8 +62,13 @@ const Step01 = () => {
     }
     return (
         <div>
-            <h1>Hello there,Please fill up this form for you loan application</h1>
-            <Card className='m-auto border border-primary' style={{ width: '24rem' }}>
+            <div className='text-center fs-3'>
+            <NavLink  className='m-2 text-decoration-none'  to='/'>Step01</NavLink> <span>{'>'}</span>
+            <NavLink  className='m-2 text-decoration-none' to='/step2/:id' disabled>Step02</NavLink><span>{'>'}</span>
+            <NavLink  className='m-2 text-decoration-none' to='/step3/:id' disabled>Step03</NavLink><span>{'>'}</span>
+            </div>
+           
+            <Card className='m-auto border border-primary mt-5' style={{ width: '24rem' }}>
                 <Card.Body>
                     <Card.Title>Personal Details</Card.Title>
                     <h4 className='text-danger'>{ageError}</h4>
@@ -99,11 +104,11 @@ const Step01 = () => {
                             <Form.Control name='email' type="email" placeholder="Enter email" required />
                            
                         </Form.Group>
-                        {(idError ==='' && ageError==='')?
+                        {(idError ==='' && ageError==='' )?
                          <Button variant=" btn btn-outline-primary item-center w-100 " type="submit">
-                            Submit
+                            Go To Next Page
                         </Button>:  <Button variant=" btn btn-outline-primary item-center w-100 " disabled type="submit">
-                            Submit
+                        Go To Next Page
                         </Button> }
                         <Button variant=" btn btn-outline-primary item-center w-100 mt-2  " onClick={handleReset} type="submit">
                             Reset Form

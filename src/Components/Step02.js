@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, NavLink } from 'react-router-dom';
 import { Button, Form, Card } from 'react-bootstrap';
 
 const Step02 = () => {
     const [user, setUser] = useState([])
+    const [userId, setuserId] = useState('')
     const [valueError, setValueError] = useState('');
     const navigate = useNavigate();
     const {id} = useParams()
+    
     console.log(id);
    useEffect(()=>{
-       fetch(`http://localhost:5000/users/${id}`)
+       fetch(`https://enigmatic-wave-24762.herokuapp.com/users/${id}`)
        .then(res=> res.json()).then(data=> {
         setUser(data);
         console.log(data);
@@ -33,7 +35,7 @@ const Step02 = () => {
         const businessaddress = e.target.address.value;
         const personalInfo ={name, age, phone, email, id:Nid, companyname, companayvalue,gst, tradeid, businessaddress}
          if( valueError ===''){
-            fetch(`http://localhost:5000/users/${id}`, {
+            fetch(`https://enigmatic-wave-24762.herokuapp.com/users/${id}`, {
                 method: 'PUT',
                 headers: {
                   'content-type': 'application/json'
@@ -56,12 +58,16 @@ const Step02 = () => {
 }
     return (
         <div>
-            <h1>Hello dear {user?.name}, please give your Business Information</h1>
-             <Card className='m-auto border border-primary' style={{ width: '24rem' }}>
+             <div className='text-center fs-3'>
+            <NavLink  className='m-2 text-decoration-none'  to='/'>Step01</NavLink> <span>{'>'}</span>
+            <NavLink  className='m-2 text-decoration-none' to='/step2/:id' disabled>Step02</NavLink><span>{'>'}</span>
+            <NavLink  className='m-2 text-decoration-none' to='/step3/:id' disabled>Step03</NavLink><span>{'>'}</span>
+            </div>
+             <Card className='m-auto mt-5 border border-primary' style={{ width: '24rem' }}>
                  
                 <Card.Body>
                     <Card.Title>Business Details</Card.Title>
-                  
+                  <h5 className='text-danger'>{valueError}</h5>
                     <Form onSubmit={handleBusinessInfo} >
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Company Name</Form.Label>
@@ -76,7 +82,7 @@ const Step02 = () => {
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>GST No</Form.Label>
-                            <Form.Control name='gst' type="number" placeholder="Your Mobile No." required />
+                            <Form.Control name='gst' type="number" placeholder="Your GST." required />
                            
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -90,11 +96,11 @@ const Step02 = () => {
                            
                         </Form.Group>
                        
-                        {(valueError==='')?
-                         <Button variant=" btn btn-outline-primary item-center w-100 " type="submit">
-                            Submit
+                        {(  valueError ==='')?
+                         <Button variant=" btn btn-outline-primary item-center w-100 "  type="submit">
+                            Go To Next Page
                         </Button>:  <Button variant=" btn btn-outline-primary item-center w-100 " disabled type="submit">
-                            Submit
+                        Go To Next Page
                         </Button> }
                         <Button variant=" btn btn-outline-primary item-center w-100 mt-2  " onClick={handleReset} type="submit">
                             Reset Form
