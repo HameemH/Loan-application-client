@@ -7,7 +7,7 @@ import Step03 from './Components/Step03';
 
 function App() {
   return (
-    <div className="App">
+    <div >
      <Routes>
        <Route path='/' element={<Step01></Step01>}></Route>
        <Route path='/step2' element={<Step02></Step02>}></Route>
