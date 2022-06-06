@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import { Button, Card, Form } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import Step02 from './Step02';
 
 const Step01 = () => {
     const [ageError, setAgeError] =  useState('');
     const [idError, setIdError] = useState ('');
+    const [userid , setuserId] = useState('')
+    const navigate = useNavigate();
+
     const handlePersonalInfo = e => {
         e.preventDefault()
         const name = e.target.firstname.value + ' ' + e.target.lastname.value;
         const age = e.target.age.value;
-        console.log(age);
         const id = e.target.id.value;
         if(age <18 || id.length> 12 || id.length<12){
             setAgeError('You have to be at least 18')
@@ -41,8 +45,13 @@ const Step01 = () => {
               })
                 .then(res => res.json())
                 .then(data => {
-                  console.log(data);
+                    setuserId(data.insertedId)
+                  
+                  console.log(userid);
                   alert('Your Info has been updated')
+                  
+                  navigate (`step2/${data.insertedId}`)
+                  
                 })
             }
         
@@ -104,6 +113,7 @@ const Step01 = () => {
 
                 </Card.Body>
             </Card>
+            
         </div>
     );
 };

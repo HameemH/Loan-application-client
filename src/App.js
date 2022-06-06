@@ -10,8 +10,8 @@ function App() {
     <div >
      <Routes>
        <Route path='/' element={<Step01></Step01>}></Route>
-       <Route path='/step2' element={<Step02></Step02>}></Route>
-       <Route path='/step3' element={<Step03></Step03>}></Route>
+       <Route path='/step2/:id' element={<Step02></Step02>}></Route>
+       <Route path='/step3/:id' element={<Step03></Step03>}></Route>
      </Routes>
     </div>
   );
