@@ -20,6 +20,10 @@ const Step01 = () => {
        else if(id.length> 12 || id.length<12){
         setIdError('Id number should be 12 digits')
         }
+        else{
+            setAgeError('')
+            setIdError('')
+        }
        
         const phone = e.target.mobile.value;
         const email = e.target.email.value;
@@ -27,17 +31,35 @@ const Step01 = () => {
         
         const personalInfo ={name, age, phone, email, id}
         console.log(personalInfo);
+        if(idError==='' && ageError===''){
+            fetch('http://localhost:5000/users', {
+                method: 'POST',
+                headers: {
+                  'content-type': 'application/json'
+                },
+                body: JSON.stringify(personalInfo)
+              })
+                .then(res => res.json())
+                .then(data => {
+                  console.log(data);
+                  alert('Your Info has been updated')
+                })
+            }
         
+        
+    }
+    const handleReset = ()=>{
+        window.location.reload()
     }
     return (
         <div>
             <h1>Hello there,Please fill up this form for you loan application</h1>
-            <Card className='m-auto border border-primary' style={{ width: '18rem' }}>
+            <Card className='m-auto border border-primary' style={{ width: '24rem' }}>
                 <Card.Body>
                     <Card.Title>Personal Details</Card.Title>
                     <h4 className='text-danger'>{ageError}</h4>
                     <h4 className='text-danger'>{idError}</h4>
-                    <Form onSubmit={handlePersonalInfo}>
+                    <Form onSubmit={handlePersonalInfo} >
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>First Name</Form.Label>
                             <Form.Control name='firstname' type="text" placeholder="First Name" required />
@@ -50,7 +72,7 @@ const Step01 = () => {
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Age</Form.Label>
-                            <Form.Control name='age' type="number" placeholder="Your Age" required />
+                            <Form.Control name='age' type="number" placeholder="Your Age(at least 18)" required />
                            
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -59,8 +81,8 @@ const Step01 = () => {
                            
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Nation Id(Adhar Card)</Form.Label>
-                            <Form.Control name='id' type="number" placeholder="Your Unique Id" required />
+                            <Form.Label>National Id(Adhar Card)</Form.Label>
+                            <Form.Control name='id' type="number" placeholder="Your Unique Id(12 digits)" required />
                            
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -68,9 +90,16 @@ const Step01 = () => {
                             <Form.Control name='email' type="email" placeholder="Enter email" required />
                            
                         </Form.Group>
-                        <Button variant=" btn btn-outline-primary item-center w-50 " type="submit">
+                        {(idError ==='' && ageError==='')?
+                         <Button variant=" btn btn-outline-primary item-center w-100 " type="submit">
                             Submit
+                        </Button>:  <Button variant=" btn btn-outline-primary item-center w-100 " disabled type="submit">
+                            Submit
+                        </Button> }
+                        <Button variant=" btn btn-outline-primary item-center w-100 mt-2  " onClick={handleReset} type="submit">
+                            Reset Form
                         </Button>
+                       
                     </Form>
 
                 </Card.Body>
