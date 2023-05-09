@@ -36,7 +36,7 @@ const Step01 = () => {
         const personalInfo ={name, age, phone, email, id}
         console.log(personalInfo);
         if(idError==='' && ageError===''){
-            fetch('https://enigmatic-wave-24762.herokuapp.com/users', {
+            fetch('https://loan-application-twsw.onrender.com/users', {
                 method: 'POST',
                 headers: {
                   'content-type': 'application/json'

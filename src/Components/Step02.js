@@ -11,7 +11,7 @@ const Step02 = () => {
     
     console.log(id);
    useEffect(()=>{
-       fetch(`https://enigmatic-wave-24762.herokuapp.com/users/${id}`)
+       fetch(`https://loan-application-twsw.onrender.com/users/${id}`)
        .then(res=> res.json()).then(data=> {
         setUser(data);
         console.log(data);
@@ -35,7 +35,7 @@ const Step02 = () => {
         const businessaddress = e.target.address.value;
         const personalInfo ={name, age, phone, email, id:Nid, companyname, companayvalue,gst, tradeid, businessaddress}
          if( valueError ===''){
-            fetch(`https://enigmatic-wave-24762.herokuapp.com/users/${id}`, {
+            fetch(`https://loan-application-twsw.onrender.com/users/${id}`, {
                 method: 'PUT',
                 headers: {
                   'content-type': 'application/json'

@@ -8,7 +8,7 @@ const Step03 = () => {
     const {id} = useParams()
 
     useEffect(()=>{
-        fetch(`https://enigmatic-wave-24762.herokuapp.com/users/${id}`)
+        fetch(`https://loan-application-twsw.onrender.com/users/${id}`)
         .then(res=> res.json()).then(data=> {
          setUser(data);
          console.log(data);
@@ -33,7 +33,7 @@ const Step03 = () => {
         const tenure = e.target.tenure.value;
         const personalInfo ={name, age, phone, email, id:Nid, companyname, companayvalue,gst, tradeid, businessaddress,amount,tenure}
         if( amountError ===''){
-            fetch(`https://enigmatic-wave-24762.herokuapp.com/users/${id}`, {
+            fetch(`https://loan-application-twsw.onrender.com/users/${id}`, {
                 method: 'PUT',
                 headers: {
                   'content-type': 'application/json'
